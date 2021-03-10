@@ -1,3 +1,4 @@
+
 class Good {
     constructor(title, price, id) {
         this.title = title;
@@ -102,3 +103,4 @@ const list = new GoodsList();
 list.fetchGoods();
 list.render();
 const cart = new CartList();
+

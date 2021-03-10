@@ -9,6 +9,7 @@ header{
     border-right: 2px solid black;
     text-align: right;
 }
+
 header p{
     display: inline;
     max-width: 400px;
