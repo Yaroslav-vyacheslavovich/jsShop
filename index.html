@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script defer src="script.js"></script>
     <!-- <script defer src="hamburger.js"></script> -->
     <link rel="stylesheet" href="style.css">
@@ -12,19 +14,49 @@
 </head>
 
 <body>
-    <header>
 
-        <p>Товаров в корзине на <span class="cart-value">0</span> рублей.</p>
-        <button class="cart-button" type="button" onclick="cart.openCart()">Корзина</button>
-        <hr>
-        <div class="cart" ></div>
-
-    </header>
-    <main>
-        <div class="goods-list"></div>
-        <hr>
-    </main>
+    <div id="app">
+        <header>
+            <div><input type="text" class="search" v-model="title"><button class="search-button" type="button"
+                    v-on:click="search()">Поиск</button></div>
+            <div>
+                <p>Товаров в корзине на <span class="cart-value">{{sum}}</span> рублей.</p>
+                <button class="cart-button" type="button" v-on:click="openCart()">Корзина</button>
+            </div>
+            <div class="cart">
+                <h3>Корзина</h3>
+                <hr>
+                <div class="cart-list">
+                    <h4 v-if="cartGoods.length == 0">{{emptyCart}} </h4>
+                    <div v-for="good in cartGoods">
+                        <p>{{good.product_name}}&nbsp;&nbsp;&nbsp;{{good.quanity}} &nbsp;&nbsp;&nbsp;
+                            <span v-on:click="addGood(good.id_product)">+</span>&nbsp;&nbsp;&nbsp;
+                            <span v-on:click="delGood(good.id_product)">-</span>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <h4><span class="cart-value">{{sum}}</span></h4>
+        </header>
+        <main>
+            <hr>
+            <div class="goods-list" >
+                <h4 v-if="goods.length == 0">{{noData}} </h4>
+                <div class="goods-item" v-for="good in goods" :class = "good.product_name">
+                    <div class="item-img"></div>
+                    <div class="item-title-price">
+                        <h3>{{good.product_name}}</h3>
+                        <p >{{good.price}}</p>
+                    </div>
+                    <div class="add-cart"><button class="add-button" v-on:click="addGood(good.id_product)"
+                            type="button">Добавить</button></div>
+                </div>
+            </div>
+            <hr>
+        </main>
+    </div>
 </body>
+
 
 
 </html>

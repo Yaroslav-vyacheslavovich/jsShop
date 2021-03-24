@@ -7,8 +7,31 @@ header{
     margin: 0 auto;
     border-left: 2px solid black;
     border-right: 2px solid black;
-    text-align: right;
+
+    display: flex;
+    justify-content: space-between;
 }
+header p{
+    display: inline;
+    max-width: 400px;
+} 
+.cart{
+    border: 2px solid black;
+    position: absolute;
+    background-color: white;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+}
+.cart-list{
+    height: 400px;
+}
+h4{
+    text-align: right;
+    margin-right: 50px;
+}
+
 
 header p{
     display: inline;
@@ -23,8 +46,15 @@ header p{
 }
 
 hr{
+    justify-self: unset;
     margin: 0 30px 0 30px;
 }
+.search{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 60px;;
+}
+
 .cart-button{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -75,4 +105,6 @@ main{
 }
 .add-button:hover{
     background-color: silver;
-} 
+
+}  
+
