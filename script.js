@@ -1,3 +1,4 @@
+
 const makeGETRequest = (url, callback) => {
     return new Promise((resolve, reject) => {
         var xhr;
@@ -43,6 +44,7 @@ class GoodsList {
         this.goods = [];
     }
     fetchGoods() {
+
         const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
         makeGETRequest(`${API_URL}/catalogData.json`, (goods) => {
             let p = new Promise((resolve, reject) =>
@@ -55,10 +57,13 @@ class GoodsList {
         this.goods.forEach
             (item => {
                 const goodsItem = new Good(item.product_name, item.price,item.id_product);
+
                 document.querySelector('.goods-list').insertAdjacentHTML('beforeEnd', goodsItem.getHtml());
             })
     }
 }
+
+
 
 class Cart{
     constructor(title, price, id, quanity) { 
@@ -77,28 +82,37 @@ class CartList {
         this.cartGoods = []
     }
     addGood(id) {
+
         let newCart = list.goods.find(item => item.id_product === id); // !!!!
         let alreadyCart = this.cartGoods.find(item => item.id_product === id);
         if (alreadyCart != undefined) {
             let i = this.cartGoods.findIndex(item => item.id_product === id);
+
             this.cartGoods[i].quanity += 1;
         }
         else {
             newCart.quanity = 1;
             this.cartGoods.push(newCart);
         }
+
         this.cartCreate();
+
+
         this.summary();
     }
     cartCreate() { 
         document.querySelector('.cart').innerHTML = "";
         this.cartGoods.forEach(item => { 
+
             const cartView = new Cart(item.product_name, item.price,item.id_product, item.quanity) //!!!!
+
             document.querySelector('.cart').insertAdjacentHTML('beforeEnd', cartView.getHtml());
             })
         }
     delGood(id) {
+
         let i = this.cartGoods.findIndex(item => item.id_product === id);
+
         this.cartGoods[i].quanity -= 1;
         if (this.cartGoods[i].quanity <=0) {
             this.cartGoods.splice(i,1);
@@ -126,4 +140,8 @@ class CartList {
 }
 const list = new GoodsList();
 list.fetchGoods();
+
 const cart = new CartList();
+
+
+
