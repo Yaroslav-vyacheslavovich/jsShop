@@ -3,6 +3,7 @@ const makeGETRequest = (url, callback) => {
     return new Promise((resolve, reject) => {
         var xhr;
         if (window.XMLHttpRequest) {
+
             xhr = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
@@ -16,11 +17,13 @@ const makeGETRequest = (url, callback) => {
                     resolve(callback(xhr.responseText)
                     )
                 }
+
             }
         }
         xhr.open('GET', url);
         xhr.send();
     })
+
 }
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
@@ -89,4 +92,3 @@ var app = new Vue({
 makeGETRequest(`${API_URL}/catalogData.json`, (goods) => {
     app.goods = JSON.parse(goods)
 });
-
