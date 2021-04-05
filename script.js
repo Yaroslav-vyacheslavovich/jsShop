@@ -1,7 +1,9 @@
+
 const makeGETRequest = (url, callback) => {
     return new Promise((resolve, reject) => {
         var xhr;
         if (window.XMLHttpRequest) {
+
             xhr = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
@@ -15,11 +17,13 @@ const makeGETRequest = (url, callback) => {
                     resolve(callback(xhr.responseText)
                     )
                 }
+
             }
         }
         xhr.open('GET', url);
         xhr.send();
     })
+
 }
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
@@ -99,6 +103,7 @@ Vue.component('nodata', {
     `
 })
 
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -108,6 +113,8 @@ var app = new Vue({
         goods: [],
         cartGoods: [],
         sum: 0,
+
+
     },
     methods: {
         openCart() {
@@ -146,7 +153,9 @@ var app = new Vue({
                 this.sum += x;
             })
         },
+
     },
+
 
 })
 

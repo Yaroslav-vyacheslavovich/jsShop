@@ -5,21 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script defer src="script.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <title>jsShop</title>
 </head>
 
 <body>
+
     <div id="app">
         <header>
             <search :goods="goods"></search>
+
             <div>
                 <p>Товаров в корзине на <span class="cart-value">{{sum}}</span> рублей.</p>
                 <button class="cart-button" type="button" v-on:click="openCart()">Корзина</button>
             </div>
-            <cart :sum="sum" :cart_goods="cartGoods" :del-good="delGood" :add-good="addGood"></cart>
+
+          <cart :sum="sum" :cart_goods="cartGoods" :del-good="delGood" :add-good="addGood"></cart>
         </header>
         <main>
             <hr>
@@ -30,6 +35,8 @@
                     <div class="item-title-price">
                         <h3>{{good.product_name}}</h3>
                         <p>{{good.price}}</p>
+
+
                     </div>
                     <div class="add-cart"><button class="add-button" v-on:click="addGood(good.id_product)"
                             type="button">Добавить</button></div>
@@ -39,5 +46,7 @@
         </main>
     </div>
 </body>
+
+
 
 </html>
