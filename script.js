@@ -27,6 +27,83 @@ const makeGETRequest = (url, callback) => {
 }
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
+Vue.component('search', {
+    data: function () {
+        return {
+            title: '',
+        };
+    },
+    props: [
+        'goods',
+    ],
+    template: `
+    <div>
+    <input type="text" class="search" v-model="title">
+    <button class="search-button" type="button" v-on:click="search()">Поиск</button>
+    </div>
+    `,
+    methods: {
+        search() {
+            let cancel = document.querySelectorAll(".goods-item");
+            cancel.forEach(item => { item.style.border = "1px solid black" })
+            console.log(this.title);
+            let regexp = new RegExp("^" + this.title + "+", 'i')
+            this.goods.forEach(item => {
+                if (regexp.test(item.product_name) == true) {
+                    let red = document.querySelector("." + this.goods.pop.name + item.id_product);
+                    red.style.border = "1px solid red";
+                }
+            })
+        }
+    }
+
+})
+Vue.component('cart', {
+    data: function () {
+        return {
+            emptyCart: 'В корзине пока нет товаров',
+        };
+    },
+    props: [
+        'sum',
+        'cart_goods',
+        'add-good',
+        'del-good',
+    ],
+    template: `
+    <div class="cart">
+        <h3>Корзина</h3>
+        <hr>
+        <div class="cart-list">
+            <h4 v-if="cart_goods.length == 0">{{emptyCart}} </h4>
+            <div v-for="good in cart_goods">
+                <p>{{good.product_name}}&nbsp;&nbsp;&nbsp;{{good.quanity}} &nbsp;&nbsp;&nbsp;
+                    <span v-on:click="addGood(good.id_product)">+</span>&nbsp;&nbsp;&nbsp;
+                    <span v-on:click="delGood(good.id_product)">-</span>&nbsp;&nbsp;&nbsp;
+                </p>
+            </div>
+        </div>
+        <hr>
+        <h4><span class="cart-value">{{sum}}</span></h4>
+    </div>
+    `
+})
+
+Vue.component('nodata', {
+    data: function () {
+        return {
+            noData: 'Нет данных',
+        };
+    },
+    props: [
+        'goods',
+    ],
+    template: `
+    <h4 v-if="goods.length == 0">{{noData}} </h4>
+    `
+})
+
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -36,7 +113,8 @@ var app = new Vue({
         goods: [],
         cartGoods: [],
         sum: 0,
-        title: '',
+
+
     },
     methods: {
         openCart() {
@@ -75,20 +153,13 @@ var app = new Vue({
                 this.sum += x;
             })
         },
-        search() {
-            let cancel = document.querySelectorAll(".goods-item");
-            cancel.forEach(item => {item.style.border = "1px solid black" })
-            let regexp = new RegExp("^"+this.title+"+", 'i')
-            this.goods.forEach(item => {
-                if (regexp.test(item.product_name) == true) {
-                    let red = document.querySelector("."+item.product_name);
-                        red.style.border = "1px solid red";
-                }
-            })
-        }
-    }
+
+    },
+
+
 })
 
 makeGETRequest(`${API_URL}/catalogData.json`, (goods) => {
     app.goods = JSON.parse(goods)
 });
+

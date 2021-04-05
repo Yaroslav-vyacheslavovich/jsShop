@@ -33,18 +33,6 @@ h4{
 }
 
 
-header p{
-    display: inline;
-    max-width: 400px;
-} 
-.cart{
-    border: 2px solid black;
-    position: absolute;
-    background-color: white;
-    width: 500px;
-    visibility: hidden;
-}
-
 hr{
     justify-self: unset;
     margin: 0 30px 0 30px;
